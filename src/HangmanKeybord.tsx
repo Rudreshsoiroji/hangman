@@ -1,7 +1,13 @@
 import React from 'react'
 import styles from './keybord.module.css'
+type KeyboardProps = {
+    disabled?: boolean
+    activeLetters: string[]
+    inactiveLetters: string[]
+    addGuessedLetter: (letter: string) => void
+  }
 
-function HangmanKeybord() {
+function HangmanKeybord({activeLetters, inactiveLetters, addGuessedLetter , disabled = false,}: KeyboardProps) {
     const KEYS = [
         "a",
         "b",
@@ -32,10 +38,22 @@ function HangmanKeybord() {
       ]
   return (
     <div style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(75px, 1fr))", gap: "0.5rem"}}>
-        {KEYS.map((key) => {
-            return   <button className={styles.btn}  key={key}>{key}</button>
-}
-)}
+         {KEYS.map(key => {
+        const isActive = activeLetters.includes(key)
+        const isInactive = inactiveLetters.includes(key)
+        return (
+          <button
+            onClick={() => addGuessedLetter(key)}
+            className={`${styles.btn} ${isActive ? styles.active : ""} ${
+              isInactive ? styles.inactive : ""
+            }`}
+            disabled={isInactive || isActive || disabled  }
+            key={key}
+          >
+            {key}
+          </button>
+        )
+      })}
     </div>
   )
 }
