@@ -36,7 +36,10 @@ const [guessLetter, setGuessLetter] = useState<string[]>([])
 
     <HangmanDrawing/>
     <HangmanWord/>
+    <div style={{alignSelf: 'stretch'}}>
     <HangmanKeybord/>
+
+    </div>
 
 
    </div>
